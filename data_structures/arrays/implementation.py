@@ -1,39 +1,39 @@
 class DynamicArray:
-    def __init__(self):
-        self.capacity = 1  # initial capacity
-        self.size = 0      # current number of elements
-        self.array = self.make_array(self.capacity)
+    def __init__(this): # type: ignore
+        this.capacity = 1  # initial capacity
+        this.size = 0      # current number of elements
+        this.array = this.make_array(this.capacity)
 
-    def make_array(self, capacity):
+    def make_array(this, capacity): # type: ignore
         """Create a new array with given capacity"""
         return [None] * capacity
 
-    def append(self, item):
+    def append(this, item): # type: ignore
         """Add item to the end of array, resize if needed"""
-        if self.size == self.capacity:
-            self.resize(2 * self.capacity)  # double capacity
-        self.array[self.size] = item
-        self.size += 1
+        if this.size == this.capacity:
+            this.resize(2 * this.capacity)  # double capacity
+        this.array[this.size] = item
+        this.size += 1
 
-    def resize(self, new_capacity):
+    def resize(this, new_capacity): # type: ignore
         """Resize internal array to new_capacity"""
-        new_array = self.make_array(new_capacity)
-        for i in range(self.size):
-            new_array[i] = self.array[i]
-        self.array = new_array
-        self.capacity = new_capacity
+        new_array = this.make_array(new_capacity)
+        for i in range(this.size):
+            new_array[i] = this.array[i]
+        this.array = new_array
+        this.capacity = new_capacity
 
-    def __getitem__(self, index):
-        if 0 <= index < self.size:
-            return self.array[index]
+    def __getitem__(this, index): # type: ignore
+        if 0 <= index < this.size:
+            return this.array[index]
         else:
             raise IndexError('Index out of bounds')
 
-    def __len__(self):
-        return self.size
+    def __len__(this): # type: ignore
+        return this.size
 
-    def __str__(self):
-        return str([self.array[i] for i in range(self.size)])
+    def __str__(this): # type: ignore
+        return str([this.array[i] for i in range(this.size)])
 
 
 # Example usage
@@ -47,24 +47,24 @@ for i in range(5):
 # Static Array
 
 class StaticArray:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.array = [None] * capacity
+    def __init__(this, capacity): # type: ignore
+        this.capacity = capacity
+        this.array = [None] * capacity
 
-    def set(self, index, value):
-        if 0 <= index < self.capacity:
-            self.array[index] = value
+    def set(this, index, value): # type: ignore
+        if 0 <= index < this.capacity:
+            this.array[index] = value
         else:
             raise IndexError("Index out of bounds")
 
-    def get(self, index):
-        if 0 <= index < self.capacity:
-            return self.array[index]
+    def get(this, index): # type: ignore
+        if 0 <= index < this.capacity:
+            return this.array[index]
         else:
             raise IndexError("Index out of bounds")
 
-    def __str__(self):
-        return str(self.array)
+    def __str__(this): # type: ignore
+        return str(this.array)
 
 # Example usage
 static_arr = StaticArray(5)
