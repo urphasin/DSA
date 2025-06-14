@@ -1,91 +1,163 @@
-# Data Structures and Algorithms Learning Roadmap
+# 🧠 My Honest Promise to You
 
-Welcome! This project is designed as a **reproducible, step-by-step learning path** to master Data Structures and Algorithms (DSA). Whether you're a beginner or brushing up skills, follow this plan to build solid understanding and problem-solving ability.
+You **will enjoy coding** more in Rust from this point on than C++. You'll get more done. You'll feel safer. And you'll spend more time thinking about **problems**, not the toolchain.
 
----
-
-## How to Use This Repository
-
-1. **Choose your programming language**  
-   Implement all code and solve problems in a single language for consistency (e.g., Python, Java, C++).
-
-2. **Follow the folder structure**  
-   Each folder contains:
-   - Core data structure implementations.
-   - Practice problems using that data structure.
-   - Notes and explanations.
-
-3. **Learn progressively**  
-   Start with the basics and move toward advanced topics.
+Would you like a fast cheat sheet for common Rust patterns for DSA (like `Vec`, `HashMap`, etc.) to get you rolling faster than you ever did with C++?
 
 ---
 
-## Step-by-Step Learning Plan
+# 🧠 Rust DSA Cheat Sheet
 
-### 1. Arrays
-- Implement basic array operations.
-- Solve easy array problems like Two Sum, Move Zeroes, Maximum Subarray.
-- Practice sliding window and two-pointer problems.
+## 📦 Common Imports
 
-### 2. Linked Lists
-- Implement singly and doubly linked lists.
-- Solve problems such as Reverse Linked List, Detect Cycle, Merge Sorted Lists.
+```rust
+use std::collections::{HashMap, HashSet, VecDeque, BinaryHeap};
+```
 
-### 3. Stacks and Queues
-- Implement stack and queue classes.
-- Solve problems: Valid Parentheses, Min Stack, Implement Queue using Stacks.
-- Explore monotonic stacks and sliding window problems.
+## 🧰 Arrays and Vectors
 
-### 4. Trees
-- Implement binary trees and binary search trees.
-- Learn tree traversals: inorder, preorder, postorder.
-- Solve Max Depth, Same Tree, Lowest Common Ancestor.
+```rust
+let arr = [1, 2, 3];        // fixed size array
+let mut vec = vec![1, 2, 3]; // growable vector
+vec.push(4);
+vec.pop();
+vec.len();
+vec.sort();
+```
 
-### 5. Graphs
-- Understand graph representations (adjacency list/matrix).
-- Implement DFS and BFS.
-- Solve problems like Number of Islands, Clone Graph, Course Schedule.
+**Loop:**
 
-### 6. Heaps and Priority Queues
-- Implement min-heap and max-heap.
-- Solve problems such as Kth Largest Element, Merge K Sorted Lists.
+```rust
+for x in &vec {
+    println!("{}", x);
+}
 
-### 7. Hashmaps
-- Practice key-value operations and hash set usage.
-- Solve problems like Two Sum, Group Anagrams, Longest Substring Without Repeats.
+for (i, val) in vec.iter().enumerate() {
+    println!("Index {}: {}", i, val);
+}
+```
 
-### 8. Advanced Structures (Optional)
-- Tries (Prefix Trees)
-- Union-Find (Disjoint Set)
-- Segment Trees and Binary Indexed Trees (Fenwick Trees)
+## 📚 Strings
 
----
+```rust
+let s = String::from("hello");
+let slice = &s[0..2];  // substring
+let chars: Vec<char> = s.chars().collect();
+```
 
-## Best Practices
+**Mutable:**
 
-- Write clean, well-commented code.
-- Test your solutions with multiple cases.
-- Keep notes or update README files with insights.
-- Use version control (Git) and commit regularly.
-- Review and refactor your solutions.
-- Participate in coding challenges and contests for real-world practice.
+```rust
+let mut s = String::new();
+s.push('a');
+s.push_str("bc");
+```
 
----
+## 🧮 HashMap / HashSet
 
-## Recommended Resources
+```rust
+let mut map = HashMap::new();
+map.insert("a", 1);
+map.get("a");  // Option<&i32>
 
-- [LeetCode](https://leetcode.com)
-- [GeeksforGeeks](https://www.geeksforgeeks.org)
-- [Cracking the Coding Interview](https://www.crackingthecodinginterview.com)
-- [Algorithms, Part I by Princeton (Coursera)](https://www.coursera.org/learn/algorithms-part1)
+let mut set = HashSet::new();
+set.insert(1);
+set.contains(&1);
+```
 
----
+## 🌀 Queues & Stacks
 
-## Contribution
+**`VecDeque` = Queue**
 
-Feel free to add new problems, optimized solutions, or notes by creating pull requests.
+```rust
+let mut q = VecDeque::new();
+q.push_back(1);  // enqueue
+q.pop_front();   // dequeue
+```
 
----
+**`Vec` = Stack**
 
-Happy Coding! 🚀
+```rust
+let mut stack = vec![];
+stack.push(10);
+stack.pop();
+```
 
+## 🔢 Binary Heap (Max by default)
+
+```rust
+let mut heap = BinaryHeap::new();
+heap.push(10);
+heap.push(2);
+heap.pop();  // gives max
+```
+
+**To get a min-heap:**
+
+```rust
+use std::cmp::Reverse;
+
+let mut min_heap = BinaryHeap::new();
+min_heap.push(Reverse(5));
+min_heap.push(Reverse(1));
+min_heap.pop().unwrap().0;
+```
+
+## ⚙️ Loops & Conditions
+
+```rust
+for i in 0..n {  // 0 to n-1
+}
+
+while let Some(val) = vec.pop() {
+    // loop while popping
+}
+
+if let Some(v) = map.get("key") {
+    println!("{}", v);
+}
+```
+
+## 📎 Pattern Matching
+
+```rust
+match some_val {
+    Some(x) => println!("Got {}", x),
+    None => println!("Nothing"),
+}
+```
+
+## 💡 Utility Helpers
+
+```rust
+vec.iter().sum::<i32>();
+vec.iter().max();
+vec.clone();    // deep copy
+vec.reverse();
+```
+
+## ✍️ Writing Fast Input Templates (Optional)
+
+```rust
+use std::io::{self, BufRead};
+
+fn main() {
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
+    
+    let first = lines.next().unwrap().unwrap();  // Read first line
+    let nums: Vec<i32> = first
+        .split_whitespace()
+        .map(|x| x.parse().unwrap())
+        .collect();
+}
+```
+
+## 🏁 TL;DR DSA Crates Worth Knowing
+
+| Crate | Use |
+|-------|-----|
+| `itertools` | Slicing, grouping, combos |
+| `rand` | Randomized algorithms |
+| `proconio` | Fast input for CP |
+| `regex` | Pattern matching |
